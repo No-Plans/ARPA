@@ -1,0 +1,223 @@
+
+/* Font loader ------------------*/
+/*
+@font-face {
+    font-family: 'FONTNAME';
+    src: url('../fonts/FILENAME.eot');
+    src: url('../fonts/FILENAME.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/FILENAME.woff') format('woff'),
+         url('../fonts/FILENAME.ttf') format('truetype'),
+         url('../fonts/FILENAME.svg#FONTNAME') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}*/
+
+
+@font-face {
+    font-family: 'america';
+    src: url('../fonts/GT-America-Standard-Light.otf');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'quarto';
+    src: url('../fonts/Quarto-Light.otf');
+    font-weight: normal;
+    font-style: normal;
+}
+
+
+/* Img url ------------------*/
+
+
+
+body {
+  font-family: 'america';
+  background: white;
+  color: white;
+  font-size: 1.7rem;
+  line-height: 1.25;
+}
+
+.main-wrapper {
+  width: 100%;
+  position: relative;
+}
+
+.gallery-wrapper {
+  position: absolute;
+  height: 100vh;
+  width: 100%;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -webkit-flex-wrap: nowrap;
+  -ms-flex-wrap: nowrap;
+  flex-wrap: nowrap;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-align-content: center;
+  -ms-flex-line-pack: center;
+  align-content: center;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
+
+  transition: translate3d 500ms ease-in-out;
+}
+
+.gallery-wrapper.closed {
+  transform: translate3d(-100%,0,0);
+}
+
+.flicker {
+  width: 75%;
+  height: 75%;
+  position: relative;
+  overflow: hidden;
+  /*transform: translateX(10rem);*/
+}
+
+
+.flicker img {
+  width: auto;
+  height: 100%;
+  position: absolute;
+  top: 50%;
+  left:0;
+  right: 0;
+  margin: 0px auto;
+
+  -webkit-transform: translate3d(0,-50%,0);
+  -moz-transform: translate3d(0,-50%,0);
+  transform: translate3d(0,-50%,0);
+  cursor: pointer;
+}
+
+
+.about {
+  height: 100vh;
+  width: 100%;
+  position: fixed;
+  left: calc(100% - 17rem);
+  color: transparent;
+  background: transparent;
+
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -webkit-flex-wrap: nowrap;
+  -ms-flex-wrap: nowrap;
+  flex-wrap: nowrap;
+  -webkit-justify-content: flex-start;
+  -ms-flex-pack: start;
+  justify-content: flex-start;
+  -webkit-align-content: stretch;
+  -ms-flex-line-pack: stretch;
+  align-content: stretch;
+  -webkit-align-items: stretch;
+  -ms-flex-align: stretch;
+  align-items: stretch;
+
+
+  -webkit-transition: left 500ms ease-in-out, color 100ms ease-in-out, background-color  500ms ease-in-out;
+  transition: left 500ms ease-in-out, color 100ms ease-in-out, background-color 500ms ease-in-out;
+}
+
+.about.open {
+  left: 0;
+  color: white;
+  background: #2C2CB4;
+  -webkit-transition: left 500ms ease-in-out, color 300ms 500ms ease-in-out, background-color 500ms ease-in-out;
+  transition: left 500ms ease-in-out, color 300ms 500ms ease-in-out, background-color 500ms ease-in-out;
+}
+
+.logo {
+  width: 15rem;
+  /*padding-left: 2rem;*/
+  color: #2C2CB4;
+  color: black;
+  cursor: pointer;
+}
+
+.about .close {
+  display: none;
+}
+
+.about.open .close {
+  display: inline-block;
+  width: 0;
+  -webkit-transform: translateX(-2.5rem);
+  transform: translateX(-2.5rem);
+}
+
+.logo .hover,
+.logo:hover .text {
+  display: none;
+}
+
+
+.logo:hover {
+  color: #2C2CB4;
+}
+
+.logo:hover .hover{
+  display: inline-block;
+}
+
+.about.open .logo {
+  color: white;
+}
+
+.about p {
+  margin-bottom: 2rem;
+}
+
+.about .introduction {
+  font-family: 'quarto';
+  font-size: 4.25rem;
+  line-height:4.75rem;
+  height: 100vh;
+  overflow-y: scroll;
+  padding-top: 3rem;
+  padding-bottom: 4.75rem;
+}
+
+.about .introduction .news {
+  font-family: 'america';
+  font-size: 1.7rem;
+  line-height: 1.25;
+  margin-bottom:10rem;
+}
+
+.address {
+  padding-top: 3rem;
+}
+
+
+
+
+/* Typography ------------------*/
+
+
+
+
+/* Media Queries ------------------*/
+
+
+/* Medium (as per framework.css) */
+
+@media screen and (max-width: 800px) {
+}
+
+/* Small (as per framework.css) */
+
+@media screen and (max-width: 600px) {
