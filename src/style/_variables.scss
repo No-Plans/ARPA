@@ -1,0 +1,16 @@
+$rem: 10px;
+$basefont: 17px;
+
+$blue: blue;
+$white: white;
+$black: black;
+
+$primary: $blue;
+
+@function rem($pixels) {
+  @return $pixels / $rem * 1rem;
+}
+
+@function em($pixels, $base: $basefont) {
+  @return $pixels / $base * 1em;
+}

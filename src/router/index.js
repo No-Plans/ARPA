@@ -1,16 +1,17 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Flicker from '@/components/Flicker'
+import Home from '@/components/Home'
 import Info from '@/components/Info'
 
 Vue.use(Router)
 
 export default new Router({
+  mode: 'history',
   routes: [
     {
       path: '/',
       name: 'Home',
-      component: Flicker
+      component: Home
     },
     {
       path: '/info',

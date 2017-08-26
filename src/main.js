@@ -3,8 +3,16 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
+import PrismicDOM from 'prismic-dom'
 
 Vue.config.productionTip = false
+Vue.config.PRISMIC = process.env.PRISMIC
+
+Vue.$html = (key) => {
+  return PrismicDOM.RichText.asHtml(key, () => {
+    return '/'
+  })
+}
 
 /* eslint-disable no-new */
 new Vue({
