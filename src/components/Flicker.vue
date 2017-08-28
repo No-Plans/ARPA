@@ -34,7 +34,7 @@ export default {
     play (play) {
       if (this.playEnabled) {
         if (play) return this.startFlicker()
-        return this.pauseFlicker()
+        return this.stopFlicker()
       }
     }
   },
@@ -55,13 +55,15 @@ export default {
         videos[i].pause()
       }
     },
-    stopFlicker () {
+    stopFlicker (playVideos = true) {
       clearInterval(this.flicker) // pause
       // play video ?
-      const active = this.$el.querySelector('[data-visible]')
-      if (active) {
-        const video = active.querySelector('video')
-        if (video) video.play()
+      if (playVideos) {
+        const active = this.$el.querySelector('[data-visible]')
+        if (active) {
+          const video = active.querySelector('video')
+          if (video) video.play()
+        }
       }
     }
   },
@@ -72,7 +74,7 @@ export default {
     this.play = true
   },
   destroyed () {
-    this.stopFlicker()
+    this.stopFlicker(false)
     window.removeEventListener('resize', this.onResize)
   }
 }
