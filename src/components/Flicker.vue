@@ -1,12 +1,12 @@
 <template lang="pug">
   .flicker
-    figure(v-for="(slide, index) in slides", v-show="index === current", @mousedown="play = false", @mouseup="play = true")
+    figure(v-for="(slide, index) in slides", v-show="index === current", @mousedown="play = false", @mouseup="play = true", :data-visible="index === current")
       div
         template(v-if="slide.slice_type === 'image'")
           img.landscape(v-if="!isPortrait", :src="slide.primary.landscape_image.url")
           img.portrait(v-else, :src="slide.primary.portrait_image.url")
         template(v-if="slide.slice_type === 'video'")
-          video(v-if="!isPortrait", :src="slide.primary.file.url", preload, autoplay, loop)
+          video(v-if="!isPortrait", :src="slide.primary.file.url", preload, loop)
           img.portrait(v-else, :src="slide.primary.portrait_image.url")
 </template>
 
@@ -32,12 +32,9 @@ export default {
   },
   watch: {
     play (play) {
-      if (play && this.playEnabled) {
-        this.flicker = setInterval(() => {
-          this.current = this.current + 1 > this.slides.length - 1 ? 0 : this.current + 1
-        }, this.interval)
-      } else {
-        clearInterval(this.flicker)
+      if (this.playEnabled) {
+        if (play) return this.startFlicker()
+        return this.pauseFlicker()
       }
     }
   },
@@ -47,6 +44,25 @@ export default {
       this.resizeTmOut = setTimeout(() => {
         this.isPortrait = window.innerWidth <= window.innerHeight
       }, 300)
+    },
+    startFlicker () {
+      this.flicker = setInterval(() => {
+        this.current = this.current + 1 > this.slides.length - 1 ? 0 : this.current + 1
+      }, this.interval)
+      // pause videos
+      const videos = this.$el.querySelectorAll('video')
+      for (var i = 0; i < videos.length; i++) {
+        videos[i].pause()
+      }
+    },
+    stopFlicker () {
+      clearInterval(this.flicker) // pause
+      // play video ?
+      const active = this.$el.querySelector('[data-visible]')
+      if (active) {
+        const video = active.querySelector('video')
+        if (video) video.play()
+      }
     }
   },
   created () {
@@ -56,6 +72,7 @@ export default {
     this.play = true
   },
   destroyed () {
+    this.stopFlicker()
     window.removeEventListener('resize', this.onResize)
   }
 }
