@@ -6,7 +6,7 @@
         router-link(:to="{name: 'Info'}")
           span ARPA Studio
           span Information
-      flicker(:slides="showcase.data.body")
+      flicker(:slides="showcase.data.body", :interval="showcase.data.flicker_rate")
 </template>
 
 <script>

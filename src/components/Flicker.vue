@@ -12,7 +12,13 @@
 <script>
 export default {
   name: 'Flicker',
-  props: ['slides'],
+  props: {
+    slides: Array,
+    interval: {
+      type: Number,
+      default: 400
+    }
+  },
   data () {
     return {
       playEnabled: process.env.FLICKER,
@@ -20,7 +26,6 @@ export default {
       current: 0,
       isPortrait: window.innerWidth < window.innerHeight,
       resizeTmOut: null,
-      interval: 150,
       flicker: null
     }
   },
@@ -29,7 +34,7 @@ export default {
       if (play && this.playEnabled) {
         this.flicker = setInterval(() => {
           this.current = this.current + 1 > this.slides.length - 1 ? 0 : this.current + 1
-        }, 150)
+        }, this.interval)
       } else {
         clearInterval(this.flicker)
       }
