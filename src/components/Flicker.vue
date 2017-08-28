@@ -15,7 +15,7 @@ export default {
   props: ['slides'],
   data () {
     return {
-      playEnabled: false,
+      playEnabled: process.env.FLICKER,
       play: false,
       current: 0,
       isPortrait: window.innerWidth < window.innerHeight,
