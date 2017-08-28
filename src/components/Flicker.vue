@@ -9,10 +9,10 @@
     @touchstart="stop")
       div
         template(v-if="slide.slice_type === 'image'")
-          img.landscape(v-if="!isPortrait", :src="slide.primary.landscape_image.url")
+          img.landscape(v-if="!portrait", :src="slide.primary.landscape_image.url")
           img.portrait(v-else, :src="slide.primary.portrait_image.url")
         template(v-if="slide.slice_type === 'video'")
-          video(v-if="!isPortrait", :src="slide.primary.file.url", preload, loop)
+          video(v-if="!portrait", :src="slide.primary.file.url", preload, loop)
           img.portrait(v-else, :src="slide.primary.portrait_image.url")
 </template>
 
@@ -29,10 +29,10 @@ export default {
   },
   data () {
     return {
-      playable: true, // process.env.FLICKER,
+      playable: process.env.FLICKER,
       current: 0,
       flicker: null,
-      isPortrait: window.innerWidth < window.innerHeight,
+      portrait: window.innerWidth < window.innerHeight,
       resizeTmOut: null
     }
   },
@@ -63,7 +63,7 @@ export default {
       }
     },
     onResize: _.throttle(function () {
-      this.isPortrait = window.innerWidth < window.innerHeight
+      this.portrait = window.innerWidth < window.innerHeight
     }, 100)
   },
   created () {
