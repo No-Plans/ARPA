@@ -1,5 +1,5 @@
 <template lang="pug">
-  .info-page
+  article
     template(v-if="info")
       header
         nav
@@ -34,7 +34,7 @@ export default {
 <style lang="scss" scoped>
 @import '../style/variables';
 
-.info-page{
+article{
   min-height:100vh;
   background-color:$primary;
   color:$white;
@@ -79,6 +79,34 @@ section{
   }
   .about{
     font-size:em(30px);
+  }
+}
+
+@include on('portrait') {
+  article{
+    padding-top:8rem;
+  }
+  nav{
+    position:fixed;
+    top:0; left:0;
+    width:100%;
+    padding:$pad-m 4rem;
+    background:$blue;
+  }
+  header{
+    position: static;
+    width:auto;
+    padding:0;
+    margin-bottom: 4em;
+  }
+  section{
+    margin:0 auto;
+    .news{
+      margin-bottom: 4em;
+    }
+    .about{
+      font-size:1em;
+    }
   }
 }
 </style>
