@@ -2,7 +2,9 @@
   .info-page
     template(v-if="info")
       header
-        router-link(:to="{name: 'Home'}") ARPA Studio
+        nav
+          router-link.close(:to="{name: 'Home'}", aria-role="Close")
+          router-link(:to="{name: 'Home'}") ARPA Studio
         .content(v-html="html(info.data.studio_info)")
       section
         .news
@@ -44,6 +46,28 @@ header{
   top:0; left:0;
   padding:4rem 4.5rem;
   width:32%;
+
+  .close{
+    position: absolute;
+    left:rem(19px);
+    padding:.27em;
+    margin-left: -.27em;
+    &:after{
+      content:'';
+      display:block;
+      font-size:(11/17)*1em;
+      width:1em;
+      height:1em;
+      background:url('../assets/icons/close.svg') center center no-repeat;
+      background-size:contain;
+    }
+    
+    transition: opacity .5s;
+    .slideleft-enter-active &,
+    .slideleft-enter-active &{
+      opacity:0;
+    }
+  }
 }
 
 section{
