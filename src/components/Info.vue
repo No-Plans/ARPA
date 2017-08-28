@@ -10,7 +10,7 @@
         .news
           .content(v-if="news.length > 0", v-html="news")
         .about
-          .content(v-html="html(info.data.about)")
+          .content.is-large(v-html="html(info.data.about)")
 </template>
 
 <script>
@@ -77,9 +77,6 @@ section{
     max-width:em(395px);
     margin-bottom: em(114px);
   }
-  .about{
-    font-size:em(30px);
-  }
 }
 
 @include on('portrait') {
@@ -103,9 +100,6 @@ section{
     margin:0 auto;
     .news{
       margin-bottom: 4em;
-    }
-    .about{
-      font-size:1em;
     }
   }
 }

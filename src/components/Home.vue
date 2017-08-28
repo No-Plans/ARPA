@@ -8,7 +8,7 @@
         router-link.menu-icon-link(:to="{name: 'Info'}")
           menu-icon
     section(v-if="showcase")
-      flicker(:slides="showcase.data.body", :interval="showcase.data.flicker_rate", @play="theme = 'light'", @pause="theme = 'dark'")
+      flicker(:slides="showcase.data.body", :interval="showcase.data.flicker_rate", @play="theme = 'play'", @pause="theme = 'pause'")
 </template>
 
 <script>
@@ -23,7 +23,7 @@ export default {
   },
   data () {
     return {
-      theme: 'light'
+      theme: 'play'
     }
   }
 }
@@ -34,10 +34,13 @@ export default {
 
 article{
   position: relative;
+  // padding:0 3rem;
+
+  // pause / play theme
   color: $blue;
   stroke:$blue;
   background-color:$white;
-  &[data-theme="dark"]{
+  &[data-theme="pause"]{
     color:$white;
     stroke:$white;
     background-color:$black;
@@ -72,6 +75,10 @@ nav{
   }
 }
 
+section{
+  overflow:hidden;
+}
+
 @include on('landscape') {
   nav{
     .slideleft-leave-active & {
@@ -101,9 +108,6 @@ nav{
     .menu-icon-link{ 
       display:inline-block;
     }
-  }
-  section{
-    overflow:hidden;
   }
 }
 

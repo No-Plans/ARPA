@@ -64,6 +64,7 @@ html{
   position: relative;
   width:100%;
   font-size:$basefont;
+  font-family: sans-serif;
   overflow-x:hidden;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -77,6 +78,18 @@ html{
     white-space:pre-wrap;
     * + *{
       margin-top: 1em;
+    }
+  }
+
+  h1,h2,h3,h4,h5,h6{
+    font-weight:normal;
+    font-size: inherit;;
+  }
+
+  .is-large{
+    font-size:em(30px);
+    @include on('portrait') {
+      font-size:1em;
     }
   }
 }

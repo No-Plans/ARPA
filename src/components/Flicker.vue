@@ -14,9 +14,11 @@
         template(v-if="slide.slice_type === 'video'")
           video(v-if="!portrait", :src="slide.primary.file.url", preload, loop)
           img.portrait(v-else, :src="slide.primary.portrait_image.url")
+      figcaption.is-large(v-html="html(slide.primary.title)")
 </template>
 
 <script>
+import Vue from 'vue'
 import _ from 'lodash'
 export default {
   name: 'Flicker',
@@ -29,11 +31,12 @@ export default {
   },
   data () {
     return {
-      playable: process.env.FLICKER,
+      playable: true, // process.env.FLICKER,
       current: 0,
       flicker: null,
       portrait: window.innerWidth < window.innerHeight,
-      resizeTmOut: null
+      resizeTmOut: null,
+      html: Vue.$html
     }
   },
   methods: {
@@ -88,32 +91,48 @@ export default {
   height:100vh;
   overflow:hidden;
   user-select:none;
+}
 
-  figure{
-    position: absolute;
-    top:0; left:0;
-    width:100%; height:100%;
-    display:flex;
-    align-items:center;
-    justify-content: center;
-    
-    visibility:hidden;
-    &[data-visible]{
-      visibility:visible;
-    }
+figure{
+  position: absolute;
+  top:0; left:0;
+  width:100%; height:100%;
+  display:flex;
+  align-items:center;
+  justify-content: center;
+  
+  visibility:hidden;
+  &[data-visible]{
+    visibility:visible;
+  }
 
-    > div{
-      @include oval();
-      &:active{
-        @include oval('active');
-      }
+  > div{
+    @include oval();
+    &:active{
+      @include oval('active');
     }
+  }
 
-    img, video{
-      display:block;
-      height: 75vh;
-      pointer-events:none;
-    }
+  img, video{
+    display:block;
+    height: 75vh;
+    pointer-events:none;
+  }  
+}
+
+figcaption{
+  position: absolute;
+  left: 2rem; bottom:2rem;
+  visibility:hidden;
+  [data-theme="pause"] [data-visible] &{
+    visibility:visible;
+  }
+}
+
+@include on('portrait') {
+  figcaption{
+    left: 0;
+    bottom:$pad-m;
   }
 }
 </style>
