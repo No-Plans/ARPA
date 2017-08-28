@@ -6,7 +6,8 @@
           img.landscape(v-if="!isPortrait", :src="slide.primary.landscape_image.url")
           img.portrait(v-else, :src="slide.primary.portrait_image.url")
         template(v-if="slide.slice_type === 'video'")
-          video(:src="slide.primary.file.url", preload, autoplay, loop)
+          video(v-if="!isPortrait", :src="slide.primary.file.url", preload, autoplay, loop)
+          img.portrait(v-else, :src="slide.primary.portrait_image.url")
 </template>
 
 <script>
