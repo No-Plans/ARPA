@@ -31,7 +31,7 @@ export default {
   },
   data () {
     return {
-      playable: true, // process.env.FLICKER,
+      playable: process.env.FLICKER,
       current: 0,
       flicker: null,
       portrait: window.innerWidth < window.innerHeight,

@@ -1,7 +1,8 @@
 <template lang="pug">
- article(:data-theme="theme")
+ article(:data-theme="theme", :class="{'loading': !loaded, 'loaded': loaded}")
     //- header ARPA Studio
-    nav
+    header(@click="loaded = !loaded")
+      nav
         router-link(:to="{name: 'Info'}")
           span ARPA Studio
           span Information
@@ -23,6 +24,7 @@ export default {
   },
   data () {
     return {
+      loaded: false,
       theme: 'play'
     }
   }
@@ -48,19 +50,22 @@ article{
   }
 }
 
-nav{
+header{
   position: fixed;
   top:0; right:0;
   z-index:50;
-  text-align: left;
+  text-align: center;
+  padding:3rem;
+  display:flex;
+  align-items:center;
+  justify-content: center;
 
   a {
-    padding:3rem;
     display: inline-block;
     span:last-child{
       display:none;
     }
-    .no-touchevents &:hover{
+    .no-touchevents .loaded &:hover{
       color:$primary;
       span:first-child{
         display:none;
@@ -72,6 +77,12 @@ nav{
   }
   .menu-icon-link{
     display:none;
+  }
+  
+  transition:all 1s;
+  .loading &{
+    font-size: em(86px);
+    transform:translateX(calc(-50vw + 50%)) translateY(calc(50vh - 50%));
   }
 }
 
@@ -93,7 +104,7 @@ section{
     overflow:hidden;
     padding:0 $pad-m;
   }
-  nav{
+  header{
     position:fixed;
     top:0; left:0;
     width:100%;
