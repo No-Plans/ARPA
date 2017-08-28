@@ -7,12 +7,27 @@ $black: black;
 
 $primary: $blue;
 
+$pad-m:2.8rem;
+
 @function rem($pixels) {
   @return $pixels / $rem * 1rem;
 }
 
 @function em($pixels, $base: $basefont) {
   @return $pixels / $base * 1em;
+}
+
+@mixin on($name) {
+  @if $name == 'portrait' {
+    @media (orientation:portrait) {
+      @content
+    }
+  }
+  @if $name == 'landscape' {
+    @media (orientation:landscape) {
+      @content
+    }
+  }
 }
 
 @mixin oval($state: 'default') {

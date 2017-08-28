@@ -1,25 +1,29 @@
 <template lang="pug">
- .home-page
+ .home-page(:data-theme="theme")
     //- header ARPA Studio
-    section(v-if="showcase")
-      nav
+    nav
         router-link(:to="{name: 'Info'}")
           span ARPA Studio
           span Information
-      flicker(:slides="showcase.data.body", :interval="showcase.data.flicker_rate")
+        router-link.menu-icon-link(:to="{name: 'Info'}")
+          menu-icon
+    section(v-if="showcase")
+      flicker(:slides="showcase.data.body", :interval="showcase.data.flicker_rate", @play="theme = 'light'", @pause="theme = 'dark'")
 </template>
 
 <script>
 import Flicker from '@/components/Flicker'
+import MenuIcon from '@/components/MenuIcon'
 export default {
   name: 'Home',
   props: ['showcase'],
   components: {
-    Flicker
+    Flicker,
+    MenuIcon
   },
   data () {
     return {
-
+      theme: 'light'
     }
   }
 }
@@ -30,6 +34,14 @@ export default {
 
 .home-page{
   position: relative;
+  color: $blue;
+  stroke:$blue;
+  &[data-theme="dark"]{
+    color:$white;
+    stroke:$white;
+    background-color:$black;
+    @include oval('active');
+  }
 }
 
 nav{
@@ -43,7 +55,7 @@ nav{
     span:last-child{
       display:none;
     }
-    &:hover{
+    .no-touchevents &:hover{
       color:$primary;
       span:first-child{
         display:none;
@@ -53,9 +65,33 @@ nav{
       }
     }
   }
-
-  .slideleft-leave-active & {
+  .menu-icon-link{
     display:none;
+  }
+}
+
+@include on('landscape') {
+  nav{
+    .slideleft-leave-active & {
+      display:none;
+    }
+  }
+}
+
+@include on('portrait') {
+  nav{
+    position:relative;
+    width:100%;
+    padding:$pad-m;
+    display:flex;
+    justify-content: space-between;
+    a{
+      padding:0;
+      color:inherit;
+    }
+    .menu-icon-link{ 
+      display:inline-block;
+    }
   }
 }
 
