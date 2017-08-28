@@ -62,6 +62,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import '../style/variables';
+
 .flicker{
   position: relative;
   width:100%;
@@ -77,7 +79,10 @@ export default {
     justify-content: center;
 
     > div{
-      cursor:e-resize;
+      @include oval();
+      &:active{
+        @include oval('active');
+      }
     }
 
     img, video{
@@ -88,6 +93,7 @@ export default {
 
     &:active{
       background-color: black;
+      @include oval('active');
     }
   }
 }

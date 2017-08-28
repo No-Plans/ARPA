@@ -14,3 +14,22 @@ $primary: $blue;
 @function em($pixels, $base: $basefont) {
   @return $pixels / $base * 1em;
 }
+
+@mixin oval($state: 'default') {
+  @if $state == 'active' {
+    cursor: url(../assets/icons/Oval--active.png) 17 17, auto;
+    cursor: -webkit-image-set(
+      url(../assets/icons/Oval--active.png) 1x,
+      url(../assets/icons/Oval--active@2x.png) 2x,
+      url(../assets/icons/Oval--active@3x.png) 3x
+    ) 17 17, auto;
+  }
+  @else {
+    cursor: url(../assets/icons/Oval.png) 15 15, auto;
+    cursor: -webkit-image-set(
+      url(../assets/icons/Oval.png) 1x,
+      url(../assets/icons/Oval@2x.png) 2x,
+      url(../assets/icons/Oval@3x.png) 3x
+    ) 15 15, auto;
+  }
+}
