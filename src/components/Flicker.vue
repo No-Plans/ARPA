@@ -11,6 +11,7 @@
 </template>
 
 <script>
+import _ from 'lodash'
 export default {
   name: 'Flicker',
   props: {
@@ -39,12 +40,6 @@ export default {
     }
   },
   methods: {
-    onResize () {
-      clearTimeout(this.resizeTmOut)
-      this.resizeTmOut = setTimeout(() => {
-        this.isPortrait = window.innerWidth <= window.innerHeight
-      }, 300)
-    },
     startFlicker () {
       this.flicker = setInterval(() => {
         this.current = this.current + 1 > this.slides.length - 1 ? 0 : this.current + 1
@@ -65,7 +60,10 @@ export default {
           if (video) video.play()
         }
       }
-    }
+    },
+    onResize: _.throttle(function () {
+      this.isPortrait = window.innerWidth <= window.innerHeight
+    }, 100)
   },
   created () {
     window.addEventListener('resize', this.onResize)

@@ -38,13 +38,13 @@ export default {
   min-height:100vh;
   background-color:$primary;
   color:$white;
-  padding:4rem 5.4rem 4rem 4.5rem;
+  padding:3rem 4rem 4.75rem;
 }
 
 header{
   position: fixed;
   top:0; left:0;
-  padding:4rem 4.5rem;
+  padding:3rem 4rem;
   width:32%;
 
   .close{
