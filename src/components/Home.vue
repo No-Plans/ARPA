@@ -1,5 +1,5 @@
 <template lang="pug">
- .home-page(:data-theme="theme")
+ article(:data-theme="theme")
     //- header ARPA Studio
     nav
         router-link(:to="{name: 'Info'}")
@@ -32,10 +32,11 @@ export default {
 <style lang="scss" scoped>
 @import '../style/variables';
 
-.home-page{
+article{
   position: relative;
   color: $blue;
   stroke:$blue;
+  background-color:$white;
   &[data-theme="dark"]{
     color:$white;
     stroke:$white;
@@ -49,6 +50,7 @@ nav{
   top:0; right:0;
   z-index:50;
   text-align: left;
+
   a {
     padding:3rem;
     display: inline-block;
@@ -79,9 +81,16 @@ nav{
 }
 
 @include on('portrait') {
+  article{
+    height:100vh;
+    overflow:hidden;
+    padding:0 $pad-m;
+  }
   nav{
-    position:relative;
+    position:fixed;
+    top:0; left:0;
     width:100%;
+    background-color:inherit;
     padding:$pad-m;
     display:flex;
     justify-content: space-between;
@@ -92,6 +101,9 @@ nav{
     .menu-icon-link{ 
       display:inline-block;
     }
+  }
+  section{
+    overflow:hidden;
   }
 }
 
