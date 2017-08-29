@@ -10,7 +10,7 @@
         .progress(:style="progressWidth")
     transition(name="showcase")
       section(v-if="showcase", v-show="!loading")
-        flicker(:slides="showcase.data.body", :interval="showcase.data.flicker_rate", @play="theme = 'play'", @pause="theme = 'pause'", @loading="setProgress")
+        flicker(:slides="showcase.data.body", :interval="showcase.data.flicker_rate", @play="theme = 'play'", @pause="theme = 'pause'", @loading="setProgress", :timeout="showcase.data.loading_timeout")
 </template>
 
 <script>

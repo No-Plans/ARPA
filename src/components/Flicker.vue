@@ -8,18 +8,23 @@
     @mousedown="stop", 
     @touchstart="stop")
       div
+        //- image
         template(v-if="slide.slice_type === 'image'")
-          img.landscape(v-if="!portrait", @load="loaded", :src="slide.primary.landscape_image.url")
-          img.portrait(v-else, @load="loaded", :src="slide.primary.portrait_image.url")
+          img.landscape(v-if="!portrait", @load="loaded", :src="media(slide.primary.landscape_image)")
+          img.portrait(v-else, @load="loaded", :src="media(slide.primary.portrait_image)")
+        //- video
         template(v-if="slide.slice_type === 'video'")
-          video(v-if="!portrait", @canplay="loaded", :src="slide.primary.file.url", preload, loop)
-          img.portrait(v-else, @load="loaded", :src="slide.primary.portrait_image.url")
+          template(v-if="!portrait")
+            video(:src="media(slide.primary.file)", preload, loop, muted, playsinline, :poster="media(slide.primary.poster)")
+            img.video-poster-loader(@load="loaded", :src="media(slide.primary.poster)")
+          template(v-else)
+            img.portrait(@load="loaded", :src="media(slide.primary.portrait_image)")
       figcaption.is-large(v-html="html(slide.primary.title)")
 </template>
 
 <script>
 import Vue from 'vue'
-import _ from 'lodash'
+// import _ from 'lodash'
 export default {
   name: 'Flicker',
   props: {
@@ -27,6 +32,10 @@ export default {
     interval: {
       type: Number,
       default: 150
+    },
+    timeout: {
+      type: Number,
+      default: 6000
     }
   },
   data () {
@@ -41,6 +50,10 @@ export default {
     }
   },
   methods: {
+    media (key) {
+      if (key) return key.url
+      return false
+    },
     play () {
       this.$emit('play')
       if (this.playable) {
@@ -71,20 +84,27 @@ export default {
       this.loadedMedia++
       const value = this.loadedMedia / this.slides.length
       this.$emit('loading', value)
+      // timeout
+      setTimeout(() => { this.$emit('loading', 1) }, this.timeout)
     },
-    onResize: _.throttle(function () {
-      this.portrait = window.innerWidth < window.innerHeight
-    }, 100)
+    onResize () {
+      this.stop()
+      setTimeout(() => {
+        this.portrait = window.innerWidth < window.innerHeight
+        this.play()
+      }, 100)
+      console.log(this.portrait)
+    }
   },
   created () {
-    window.addEventListener('resize', this.onResize)
+    window.addEventListener('orientationchange', this.onResize)
   },
   mounted () {
     this.play()
   },
   destroyed () {
     this.stop(false)
-    window.removeEventListener('resize', this.onResize)
+    window.removeEventListener('orientationchange', this.onResize)
   }
 }
 </script>
@@ -134,6 +154,11 @@ figcaption{
   [data-theme="pause"] [data-visible] &{
     visibility:visible;
   }
+}
+
+.video-poster-loader{
+  display:none;
+  visibility:hidden;
 }
 
 @include on('portrait') {
