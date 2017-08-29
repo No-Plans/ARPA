@@ -94,6 +94,13 @@ var webpackConfig = merge(baseWebpackConfig, {
         to: config.build.assetsSubDirectory,
         ignore: ['.*']
       }
+    ]),
+    // copy Netlify _redirects file for SPA routes
+    new CopyWebpackPlugin([
+      {
+        from: path.resolve(__dirname, '../_redirects'),
+        to: config.build.assetsRoot
+      }
     ])
   ]
 })
