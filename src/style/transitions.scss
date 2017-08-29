@@ -31,3 +31,11 @@
 .slideright-leave-to{
   transform: translateX(100%);
 }
+
+// showcase
+.showcase-enter-active{
+  transition:opacity 0s $logo-collapse-dur !important;
+}
+.showcase-enter{
+  opacity: 0 !important;
+}

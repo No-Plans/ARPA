@@ -9,6 +9,8 @@ $primary: $blue;
 
 $pad-m:2.8rem;
 
+$logo-collapse-dur: 700ms;
+
 @function rem($pixels) {
   @return $pixels / $rem * 1rem;
 }

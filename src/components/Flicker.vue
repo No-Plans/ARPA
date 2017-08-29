@@ -9,11 +9,11 @@
     @touchstart="stop")
       div
         template(v-if="slide.slice_type === 'image'")
-          img.landscape(v-if="!portrait", :src="slide.primary.landscape_image.url")
-          img.portrait(v-else, :src="slide.primary.portrait_image.url")
+          img.landscape(v-if="!portrait", @load="loaded", :src="slide.primary.landscape_image.url")
+          img.portrait(v-else, @load="loaded", :src="slide.primary.portrait_image.url")
         template(v-if="slide.slice_type === 'video'")
-          video(v-if="!portrait", :src="slide.primary.file.url", preload, loop)
-          img.portrait(v-else, :src="slide.primary.portrait_image.url")
+          video(v-if="!portrait", @canplay="loaded", :src="slide.primary.file.url", preload, loop)
+          img.portrait(v-else, @load="loaded", :src="slide.primary.portrait_image.url")
       figcaption.is-large(v-html="html(slide.primary.title)")
 </template>
 
@@ -31,18 +31,20 @@ export default {
   },
   data () {
     return {
-      playable: process.env.FLICKER,
+      playable: true, // process.env.FLICKER,
       current: 0,
       flicker: null,
       portrait: window.innerWidth < window.innerHeight,
       resizeTmOut: null,
-      html: Vue.$html
+      html: Vue.$html,
+      loadedMedia: 0
     }
   },
   methods: {
     play () {
       this.$emit('play')
       if (this.playable) {
+        clearInterval(this.flicker)
         this.flicker = setInterval(() => {
           this.current = this.current + 1 > this.slides.length - 1 ? 0 : this.current + 1
         }, this.interval)
@@ -64,6 +66,11 @@ export default {
           if (video) video.play()
         }
       }
+    },
+    loaded () {
+      this.loadedMedia++
+      const value = this.loadedMedia / this.slides.length
+      this.$emit('loading', value)
     },
     onResize: _.throttle(function () {
       this.portrait = window.innerWidth < window.innerHeight

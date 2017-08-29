@@ -1,7 +1,7 @@
 <template lang="pug">
   #app.app
     transition(:name="transition")
-      router-view(:showcase="showcase", :info="info")
+      router-view(:entryPage="entryPage", :showcase="showcase", :info="info")
 </template>
 
 <script>
@@ -12,7 +12,8 @@ export default {
   data () {
     return {
       docs: null,
-      transition: 'slideleft'
+      transition: 'slideleft',
+      entryPage: true
     }
   },
   computed: {
@@ -25,6 +26,7 @@ export default {
   },
   watch: {
     '$route' (to, from) {
+      this.entryPage = false
       this.transition = to.name === 'Info' ? 'slideleft' : 'slideright'
     }
   },
