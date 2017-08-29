@@ -114,7 +114,7 @@ section{
     .slideleft-leave-active & {
       display:none;
     }
-    transition:all $logo-collapse-dur;
+    transition:font-size $logo-collapse-dur, transform $logo-collapse-dur;
     .loading &{
       font-size: em(86px);
       transform:translateX(calc(-50vw + 50%)) translateY(calc(50vh - 50%));
@@ -124,11 +124,15 @@ section{
     position: relative;
     display: block;
     .progress{
+      display:none;
       position: absolute;
       top:0; right:0;
       width:100%; height:100%;
       background:$white;
       transform-origin: top right;
+      .loading &{
+        display:block;
+      }
     }
   }
 }

@@ -56,6 +56,7 @@ export default {
 <style lang="scss">
 @import './style/variables';
 @import './style/reset';
+@import './style/fonts';
 @import './style/transitions';
 
 html{
@@ -66,7 +67,7 @@ html{
   position: relative;
   width:100%;
   font-size:$basefont;
-  font-family: sans-serif;
+  font-family: 'america', sans-serif;
   overflow-x:hidden;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
